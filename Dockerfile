@@ -16,7 +16,7 @@ RUN ["apt-get", "update"]
 RUN ["apt-get", "install", "-y", "vim"]
 
 # Expose the app port
-EXPOSE 9000
+EXPOSE 8000
 
 # Start the app
 ENTRYPOINT npm run start

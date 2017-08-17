@@ -12,7 +12,11 @@ require('babel-core/register')({
 
 
 const server = new Hapi.Server();
-server.connection({ port: 9000, host: 'localhost' });
+server.connection({
+  host: '0.0.0.0',
+  port: 8000
+});
+
 server.register([Inert, Vision], (err) => {
 
     if (err) {
