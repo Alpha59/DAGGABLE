@@ -1,0 +1,13 @@
+web:
+  build: .
+  links:
+    - db
+  environment:
+    - DB_HOST=db
+  ports:
+    - '8000:8000'
+  volumes:
+      - ./source/:/usr/src/app/
+  command: npm start
+db:
+  image: mongo

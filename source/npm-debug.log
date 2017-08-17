@@ -1,0 +1,39 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'dev' ]
+2 info using npm@2.15.11
+3 info using node@v0.12.18
+4 verbose run-script [ 'predev', 'dev', 'postdev' ]
+5 info predev URBNDag-UI@0.0.1
+6 info dev URBNDag-UI@0.0.1
+7 verbose unsafe-perm in lifecycle true
+8 info URBNDag-UI@0.0.1 Failed to exec dev script
+9 verbose stack Error: URBNDag-UI@0.0.1 dev: `webpack --progress --colors --watch & nodemon`
+9 verbose stack spawn ENOENT
+9 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:17:16)
+9 verbose stack     at ChildProcess.emit (events.js:110:17)
+9 verbose stack     at maybeClose (child_process.js:1019:16)
+9 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1091:5)
+10 verbose pkgid URBNDag-UI@0.0.1
+11 verbose cwd /usr/src/app
+12 error Linux 4.9.36-moby
+13 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "dev"
+14 error node v0.12.18
+15 error npm  v2.15.11
+16 error file sh
+17 error code ELIFECYCLE
+18 error errno ENOENT
+19 error syscall spawn
+20 error URBNDag-UI@0.0.1 dev: `webpack --progress --colors --watch & nodemon`
+20 error spawn ENOENT
+21 error Failed at the URBNDag-UI@0.0.1 dev script 'webpack --progress --colors --watch & nodemon'.
+21 error This is most likely a problem with the URBNDag-UI package,
+21 error not with npm itself.
+21 error Tell the author that this fails on your system:
+21 error     webpack --progress --colors --watch & nodemon
+21 error You can get information on how to open an issue for this project with:
+21 error     npm bugs URBNDag-UI
+21 error Or if that isn't available, you can get their info via:
+21 error
+21 error     npm owner ls URBNDag-UI
+21 error There is likely additional logging output above.
+22 verbose exit [ 1, true ]
