@@ -12,15 +12,11 @@ RUN npm install
 RUN npm install -g n nodemon webpack
 RUN n 8.3.0
 
-# Build the app
-RUN npm run build
-
 RUN ["apt-get", "update"]
 RUN ["apt-get", "install", "-y", "vim"]
 
 # Expose the app port
-EXPOSE 8000
+EXPOSE 9000
 
 # Start the app
-CMD npm run start
-ENTRYPOINT npm run dev
+ENTRYPOINT npm run start
