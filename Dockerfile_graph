@@ -1,0 +1,40 @@
+FROM node:0.12
+MAINTAINER Alpha59
+
+# Prepare app directory
+RUN mkdir -p /usr/src/app/server
+
+VOLUME "/usr/src/app/server"
+
+ENV PORT=4000
+
+RUN groupadd -g 501 urbndag \
+    && useradd -s /sbin/nologin -u 501 -g urbndag urbndag \
+    && mkdir /var/log/urbndag \
+    && chmod 777 /var/log/urbndag \
+    && chmod 777 /usr/src/app/server
+
+COPY source/server /usr/src/app/server
+
+# Install dependencies
+WORKDIR /usr/src/app/server
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends apt-utils
+
+RUN npm install -g n \
+    && n 6.10.3 \
+    && rm -rf ./node_modules/* \
+    && rm -f /var/log/*.log /var/log/*log /var/log/*.syslog
+
+# Map Volume
+VOLUME "/var/log/urbndag"
+
+WORKDIR /usr/src/app/server
+
+RUN npm install --no-optional
+
+EXPOSE 4000
+
+# Start the app
+ENTRYPOINT npm install --no-optional && npm run start

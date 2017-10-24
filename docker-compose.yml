@@ -2,15 +2,76 @@ version: '2'
 
 services:
 
-    web:
+    kafka_urbndag:
+        image: spotify/kafka
+        container_name: kafka_urbndag
+        hostname: kafka_urbndag
+        ports:
+            - '9092:9092'
+            - '2181:2181'
+        environment:
+            - ADVERTISED_HOST=kafka_urbndag
+            - ADVERTISED_PORT=9092
+
+    kafka_manager_urbndag:
+        image: sheepkiller/kafka-manager
+        container_name: kafka_manager_urbndag
+        ports:
+            - '9000:9000'
+        links:
+            - kafka_urbndag:kafka_urbndag
+        environment:
+            - ZK_CONNECT=localhost:2181
+
+    mongo_urbndag:
+        image: mongo
+        container_name: mongo_urbndag
+        ports:
+            - '27017:27017'
+        volumes:
+            - ./source/var/mongo/:/data/db/
+
+    mongoexpress_urbndag:
+        image: mongo-express
+        container_name: mongoexpress_urbndag
+        links:
+            - mongo_urbndag:mongo_urbndag
+        ports:
+            - "8081:8081"
+
+    eventstore_urbndag:
+        image: eventstore/eventstore
+        container_name: eventstore_urbndag
+        ports:
+            - "2113:2113"
+            - "1113:1113"
+
+    graphql_urbndag:
+        build:
+            context: .
+            dockerfile: Dockerfile_graph
+        container_name: graphql_urbndag
+        ports:
+            - "4000:4000"
+        volumes:
+            - ./source/server/:/usr/src/app/server/
+        command: node ./server.js
+
+    urbndag:
         build:
             context: .
             dockerfile: Dockerfile
         container_name: urbndag
-        environment:
-            - DB_HOST=db
         ports:
             - '8002:8002'
         volumes:
             - ./source/:/usr/src/app/
+            - /usr/src/app/node_modules/
         command: npm run start
+
+    rethinkdb_urbndag:
+        image: rethinkdb
+        volumes:
+            - .:/data
+        ports:
+            - '8080:8080'

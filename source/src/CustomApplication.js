@@ -1,6 +1,7 @@
 import React from 'react';
 import MyAwesomeReactComponent from './MyAwesomeReactComponent';
 import ToolbarExamplesSimple from './ToolbarExamplesSimple';
+import ChannelList from './ChannelList';
 import logo from './logo.svg';
 
 const CustomApplication = () => (

@@ -20,24 +20,28 @@ COPY source/ /usr/src/app
 WORKDIR /usr/src/app
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends apt-utils \
-    && apt-get install -y vim
+    && apt-get install -y --no-install-recommends apt-utils
 
 RUN npm install -g n \
-    && n 8.4.0 \
+    && n 6.11.3 \
     && rm -rf ./node_modules/* \
-    && rm -f /var/log/*.log /var/log/*log /var/log/*.syslog \
-    && npm install -g nodemon \
-    && npm install -g webpack create-react-app
+    && rm -f /var/log/*.log /var/log/*log /var/log/*.syslog
+
+RUN npm install -g webpack create-react-app babel-cli nodemon
 
 # Map Volume
 VOLUME "/var/log/urbndag"
 
-EXPOSE 8002
+WORKDIR /usr/src/app
 
-RUN npm install
+RUN npm install --no-optional
+
+RUN rm -rf node_modules/graphql-tools/node_modules/@types/graphql && rm -rf node_modules/apollo-*/node_modules/graphql && rm -rf node_modules/graphql-tools/node_modules/@types/graphql && rm -rf node_modules/@types/graphql
 
 #RUN npm run build
 
+EXPOSE 8002
+
 # Start the app
+#&& npm run graph-1
 ENTRYPOINT npm install --no-optional && npm run start
